@@ -695,7 +695,7 @@ export default function Home() {
               <ul className="space-y-3 text-neutral-400 text-sm list-disc list-inside">
                 <li>Harga sewaktu-waktu dapat berubah.</li>
                 <li>
-                  Untuk Menu Prasmanan bisa langsung menghubungi kontak yang
+                  Untuk Menu Tumpeng bisa langsung menghubungi kontak yang
                   tertera.
                 </li>
                 <li>
