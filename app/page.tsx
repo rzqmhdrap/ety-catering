@@ -6,7 +6,6 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState("nasibox");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // FIX: Memberi tahu TypeScript bahwa quantity bisa number atau string kosong
   const [calcState, setCalcState] = useState<{
     packageType: string;
     quantity: number | string;
@@ -15,7 +14,6 @@ export default function Home() {
     quantity: 20,
   });
 
-  // FIX: Memberikan tipe pada object prices agar TypeScript tidak bingung
   const prices: Record<string, { price: number; name: string }> = {
     "nasibox-silver": { price: 25000, name: "Nasi Box Silver" },
     "nasibox-gold": { price: 30000, name: "Nasi Box Gold" },
@@ -23,23 +21,21 @@ export default function Home() {
     "prasmanan-silver": { price: 30000, name: "Prasmanan Silver" },
     "prasmanan-gold": { price: 40000, name: "Prasmanan Gold" },
     "prasmanan-diamond": { price: 50000, name: "Prasmanan Diamond" },
+    "tumpeng-kecil": { price: 300000, name: "Tumpeng 10 Pax" },
+    "tumpeng-sedeng": { price: 600000, name: "Tumpeng 20 Pax" },
+    "tumpeng-besar": { price: 750000, name: "Tumpeng 30 Pax" },
     "snackbox-silver": { price: 10000, name: "Snack Box Silver" },
     "snackbox-gold": { price: 12000, name: "Snack Box Gold" },
   };
 
-  // Logika Kalkulator
   const currentPackage = prices[calcState.packageType];
-
-  // Pastikan jika input kosong (""), jumlahnya dianggap 0 agar tidak NaN
   const qty = calcState.quantity === "" ? 0 : Number(calcState.quantity);
   let totalPrice = qty * currentPackage.price;
 
-  // Penalti Prasmanan < 100 pax
   if (calcState.packageType.includes("prasmanan") && qty > 0 && qty < 100) {
     totalPrice += qty * 5000;
   }
 
-  // Generate URL WhatsApp
   const generateWaUrl = () => {
     const bonus = qty > 500 ? "%0A🎁 BONUS: Gratis 2 Box Ice Cream!" : "";
     const penaltyInfo =
@@ -49,7 +45,7 @@ export default function Home() {
 
     const text = `Halo! Saya ingin pesan:%0A${qty} ${
       currentPackage.name
-    }%0AEstimasi harga: Rp ${totalPrice.toLocaleString("id-ID")}${penaltyInfo}${bonus}%0A%0AKapan bisa dikirim?`;
+    }%0AEstimasi harga: Rp ${totalPrice.toLocaleString("id-ID")}${penaltyInfo}${bonus}%0A%0AApakah bisa?`;
 
     return `https://wa.me/6285776146459?text=${text}`;
   };
@@ -59,7 +55,6 @@ export default function Home() {
       {/* HEADER NAVBAR */}
       <header className="fixed w-full top-0 z-50 bg-neutral-900/80 backdrop-blur-lg border-b border-amber-500/20">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          {/* LOGO DI NAVBAR */}
           <a href="#home" className="flex items-center gap-3 z-50">
             <img
               src="/logocatering.png"
@@ -71,21 +66,22 @@ export default function Home() {
             </span>
           </a>
 
-          {/* Desktop Menu */}
+          {/* Desktop Menu - Ditambahkan 'Galeri' */}
           <nav className="hidden md:flex gap-8">
-            {["Home", "Paket", "Menu", "Kalkulator", "Kontak"].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="font-medium hover:text-amber-500 transition-colors relative group"
-              >
-                {item}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-500 transition-all group-hover:w-full"></span>
-              </a>
-            ))}
+            {["Home", "Paket", "Menu", "Galeri", "Kalkulator", "Kontak"].map(
+              (item) => (
+                <a
+                  key={item}
+                  href={`#${item.toLowerCase()}`}
+                  className="font-medium hover:text-amber-500 transition-colors relative group"
+                >
+                  {item}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-500 transition-all group-hover:w-full"></span>
+                </a>
+              ),
+            )}
           </nav>
 
-          {/* Mobile Menu Button */}
           <button
             className="md:hidden flex flex-col gap-1.5 z-50"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -105,16 +101,18 @@ export default function Home() {
         {/* Mobile Nav Dropdown */}
         {isMobileMenuOpen && (
           <div className="md:hidden absolute top-full left-0 w-full bg-neutral-900 border-b border-amber-500/20 p-4 flex flex-col gap-4 shadow-xl">
-            {["Home", "Paket", "Menu", "Kalkulator", "Kontak"].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="text-lg hover:text-amber-500"
-              >
-                {item}
-              </a>
-            ))}
+            {["Home", "Paket", "Menu", "Galeri", "Kalkulator", "Kontak"].map(
+              (item) => (
+                <a
+                  key={item}
+                  href={`#${item.toLowerCase()}`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-lg hover:text-amber-500"
+                >
+                  {item}
+                </a>
+              ),
+            )}
           </div>
         )}
       </header>
@@ -128,7 +126,6 @@ export default function Home() {
           <div className="bg-neutral-900/60 backdrop-blur-md border border-amber-500/30 px-5 py-2 rounded-full font-semibold shadow-lg flex items-center gap-2">
             👑 Best Choice
           </div>
-          {/* BADGE LOGO HALAL DI HERO */}
           <div className="bg-neutral-900/60 backdrop-blur-md border border-amber-500/30 px-4 py-2 rounded-full font-semibold shadow-lg flex items-center gap-3">
             <img
               src="/logohalal.png"
@@ -222,14 +219,13 @@ export default function Home() {
       {/* MENU DIGITAL */}
       <section
         id="menu"
-        className="py-24 px-6 bg-neutral-900 border-y border-amber-500/10"
+        className="py-24 px-6 bg-neutral-900 border-t border-amber-500/10"
       >
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-amber-500 mb-12">
             Menu Digital Catering
           </h2>
 
-          {/* Tabs */}
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             {[
               { id: "nasibox", label: "📦 Nasi Box" },
@@ -252,7 +248,6 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Tab Content: Nasi Box */}
           {activeTab === "nasibox" && (
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
               <div className="overflow-x-auto rounded-2xl border border-neutral-800">
@@ -302,7 +297,6 @@ export default function Home() {
             </div>
           )}
 
-          {/* Tab Content: Snack Box */}
           {activeTab === "snackbox" && (
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
               <div className="overflow-x-auto rounded-2xl border border-neutral-800 mb-8">
@@ -356,17 +350,14 @@ export default function Home() {
             </div>
           )}
 
-          {/* Tab Content: Tumpeng */}
           {activeTab === "tumpeng" && (
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 bg-neutral-800/50 p-8 rounded-2xl border border-neutral-700">
               <h4 className="text-amber-500 font-bold mb-4 text-xl">
                 Varian Ukuran Tumpeng
               </h4>
               <ul className="list-disc list-inside text-neutral-300 mb-8 space-y-2">
-                <li>Paket Tumpeng Mini</li>
-                <li>
-                  Paket Tumpeng Porsi Besar: 20 pax / 30 pax / 40 pax / 50 pax
-                </li>
+                <li>Paket Tumpeng Mini : 10 pax</li>
+                <li>Paket Tumpeng Porsi Besar: 20 pax / 30 pax</li>
               </ul>
               <h4 className="text-amber-500 font-bold mb-4 text-xl border-t border-neutral-700 pt-6">
                 Isi Nasi Tumpeng Lengkap:
@@ -379,7 +370,6 @@ export default function Home() {
             </div>
           )}
 
-          {/* Tab Content: Prasmanan */}
           {activeTab === "prasmanan" && (
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
               <div className="overflow-x-auto rounded-2xl border border-neutral-800 mb-10">
@@ -511,7 +501,6 @@ export default function Home() {
             </div>
           )}
 
-          {/* Tab Content: Gubukan */}
           {activeTab === "gubukan" && (
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 bg-neutral-800/50 p-8 rounded-2xl border border-neutral-700 max-w-3xl mx-auto">
               <ul className="grid grid-cols-2 md:grid-cols-3 gap-4 text-neutral-300 text-lg list-disc list-inside">
@@ -534,127 +523,208 @@ export default function Home() {
         </div>
       </section>
 
-      {/* KALKULATOR SECTION */}
-      <section id="kalkulator" className="py-24 px-6 max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-amber-500 mb-12">
-          🧮 Kalkulator Pesanan
-        </h2>
+      {/* GALERI FOTO MAKANAN */}
+      <section
+        id="galeri"
+        className="py-24 px-6 bg-neutral-950 border-t border-amber-500/10"
+      >
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-amber-500 mb-16 relative">
+            Galeri
+            <span className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-20 h-1 bg-gradient-to-r from-amber-500 to-transparent rounded-full"></span>
+          </h2>
 
-        <div className="max-w-xl mx-auto bg-neutral-900 border border-amber-500/20 rounded-3xl p-8 md:p-12 text-center shadow-2xl">
-          <h3 className="text-xl font-bold mb-8 text-white">
-            Hitung Estimasi Harga Anda
-          </h3>
-
-          <div className="space-y-6 text-left">
-            <div>
-              <label className="block text-sm font-medium text-neutral-400 mb-2">
-                Jenis Pesanan:
-              </label>
-              <div className="relative">
-                <select
-                  value={calcState.packageType}
-                  onChange={(e) =>
-                    setCalcState({ ...calcState, packageType: e.target.value })
-                  }
-                  className="w-full bg-neutral-950 border border-neutral-700 text-white rounded-xl p-4 pr-12 focus:outline-none focus:ring-2 focus:ring-amber-500 transition-shadow appearance-none cursor-pointer"
-                >
-                  <option value="nasibox-silver">Nasi Box Silver (25k)</option>
-                  <option value="nasibox-gold">Nasi Box Gold (30k)</option>
-                  <option value="nasibox-diamond">
-                    Nasi Box Diamond (35k)
-                  </option>
-                  <option value="prasmanan-silver">
-                    Prasmanan Silver (30k/pax)
-                  </option>
-                  <option value="prasmanan-gold">
-                    Prasmanan Gold (40k/pax)
-                  </option>
-                  <option value="prasmanan-diamond">
-                    Prasmanan Diamond (50k/pax)
-                  </option>
-                  <option value="snackbox-silver">
-                    Snack Box Silver (10k)
-                  </option>
-                  <option value="snackbox-gold">Snack Box Gold (12k)</option>
-                </select>
-
-                {/* Ikon Panah Bawah Custom (Warna Gold) */}
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-amber-500">
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2.5"
-                      d="M19 9l-7 7-7-7"
-                    ></path>
-                  </svg>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+            {[
+              {
+                id: 1,
+                src: "/gallery1.png",
+                alt: "",
+              },
+              {
+                id: 2,
+                src: "/gallery7.png",
+                alt: "",
+              },
+              {
+                id: 3,
+                src: "/gallery10.png",
+                alt: "",
+              },
+              {
+                id: 4,
+                src: "/gallery8.png",
+                alt: "",
+              },
+              {
+                id: 5,
+                src: "/gallery6.png",
+                alt: "",
+              },
+              {
+                id: 6,
+                src: "/gallery9.png",
+                alt: "",
+              },
+            ].map((img) => (
+              <div
+                key={img.id}
+                className="relative group overflow-hidden rounded-2xl aspect-square border border-neutral-800 cursor-pointer"
+              >
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                  <span className="text-amber-400 font-bold text-lg md:text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                    {img.alt}
+                  </span>
                 </div>
+              </div>
+            ))}
+          </div>
+
+          {/* <p className="text-center text-neutral-400 mt-8 italic text-sm">
+            *Ini adalah foto ilustrasi. Silakan ganti URL gambarnya dengan foto
+            produk asli Anda.
+          </p> */}
+        </div>
+      </section>
+
+      {/* KALKULATOR SECTION */}
+      <section id="kalkulator" className="py-24 px-6 bg-neutral-900 max-w-full">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-amber-500 mb-12">
+            🧮 Kalkulator Pesanan
+          </h2>
+
+          <div className="max-w-xl mx-auto bg-neutral-950 border border-amber-500/20 rounded-3xl p-8 md:p-12 text-center shadow-2xl">
+            <h3 className="text-xl font-bold mb-8 text-white">
+              Hitung Estimasi Harga Anda
+            </h3>
+
+            <div className="space-y-6 text-left">
+              <div>
+                <label className="block text-sm font-medium text-neutral-400 mb-2">
+                  Jenis Pesanan:
+                </label>
+                <div className="relative">
+                  <select
+                    value={calcState.packageType}
+                    onChange={(e) =>
+                      setCalcState({
+                        ...calcState,
+                        packageType: e.target.value,
+                      })
+                    }
+                    className="w-full bg-neutral-900 border border-neutral-700 text-white rounded-xl p-4 pr-12 focus:outline-none focus:ring-2 focus:ring-amber-500 transition-shadow appearance-none cursor-pointer"
+                  >
+                    <option value="nasibox-silver">
+                      Nasi Box Silver (25k)
+                    </option>
+                    <option value="nasibox-gold">Nasi Box Gold (30k)</option>
+                    <option value="nasibox-diamond">
+                      Nasi Box Diamond (35k)
+                    </option>
+                    <option value="prasmanan-silver">
+                      Prasmanan Silver (30k/pax)
+                    </option>
+                    <option value="prasmanan-gold">
+                      Prasmanan Gold (40k/pax)
+                    </option>
+                    <option value="prasmanan-diamond">
+                      Prasmanan Diamond (50k/pax)
+                    </option>
+                    <option value="tumpeng-kecil">Tumpeng 10 Pax (300k)</option>
+                    <option value="tumpeng-sedeng">
+                      Tumpeng 20 Pax (600k)
+                    </option>
+                    <option value="tumpeng-besar">Tumpeng 30 Pax (750k)</option>
+                    <option value="snackbox-silver">
+                      Snack Box Silver (10k)
+                    </option>
+                    <option value="snackbox-gold">Snack Box Gold (12k)</option>
+                  </select>
+
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-amber-500">
+                    <svg
+                      className="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2.5"
+                        d="M19 9l-7 7-7-7"
+                      ></path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-neutral-400 mb-2">
+                  Jumlah porsi/box (Min 20 untuk Nasi box/snack dan 50 untuk
+                  Prasmanan):
+                </label>
+                <input
+                  type="number"
+                  min="20"
+                  value={calcState.quantity}
+                  onChange={(e) =>
+                    setCalcState({
+                      ...calcState,
+                      quantity:
+                        e.target.value === "" ? "" : Number(e.target.value),
+                    })
+                  }
+                  className="w-full bg-neutral-900 border border-neutral-700 text-white rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-amber-500 transition-shadow text-center text-lg"
+                />
               </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-neutral-400 mb-2">
-                Jumlah porsi/box (Min 20 untuk Nasi box/Snack dan 50 untuk
-                Prasmanan):
-              </label>
-              <input
-                type="number"
-                min="20"
-                value={calcState.quantity}
-                onChange={(e) =>
-                  setCalcState({
-                    ...calcState,
-                    quantity:
-                      e.target.value === "" ? "" : Number(e.target.value),
-                  })
-                }
-                className="w-full bg-neutral-950 border border-neutral-700 text-white rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-amber-500 transition-shadow text-center text-lg"
-              />
+            <div className="my-10">
+              <p className="text-sm text-neutral-400 mb-2">Total Estimasi:</p>
+              <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
+                Rp {totalPrice.toLocaleString("id-ID")}
+              </div>
             </div>
-          </div>
 
-          <div className="my-10">
-            <p className="text-sm text-neutral-400 mb-2">Total Estimasi:</p>
-            <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
-              Rp {totalPrice.toLocaleString("id-ID")}
+            <div className="bg-neutral-900/50 border border-amber-500/20 rounded-xl p-5 mb-8 text-left">
+              <p className="font-bold text-amber-500 mb-2">🎁 BONUS SPESIAL:</p>
+              <p className="text-sm text-neutral-300">
+                ✅ Pesan <strong>&gt;500 pax</strong> → Gratis 2 Box Ice Cream!
+              </p>
+              {calcState.packageType.includes("prasmanan") &&
+                qty > 0 &&
+                qty < 100 && (
+                  <p className="text-xs text-red-400 mt-2">
+                    *Prasmanan di bawah 100 pax dikenakan tambahan Rp 5.000/pax.
+                  </p>
+                )}
             </div>
-          </div>
 
-          <div className="bg-neutral-950/50 border border-amber-500/20 rounded-xl p-5 mb-8 text-left">
-            <p className="font-bold text-amber-500 mb-2">🎁 BONUS SPESIAL:</p>
-            <p className="text-sm text-neutral-300">
-              ✅ Pesan <strong>&gt;500 pax</strong> → Gratis 2 Box Ice Cream!
-            </p>
-            {calcState.packageType.includes("prasmanan") &&
-              qty > 0 &&
-              qty < 100 && (
-                <p className="text-xs text-red-400 mt-2">
-                  *Prasmanan di bawah 100 pax dikenakan tambahan Rp 5.000/pax.
-                </p>
-              )}
+            <a
+              href={generateWaUrl()}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex w-full justify-center items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-4 px-8 rounded-xl hover:-translate-y-1 hover:shadow-lg hover:shadow-green-500/30 transition-all text-lg"
+            >
+              📲 Konfirmasi Pesanan Via WA
+            </a>
           </div>
-
-          <a
-            href={generateWaUrl()}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex w-full justify-center items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-4 px-8 rounded-xl hover:-translate-y-1 hover:shadow-lg hover:shadow-green-500/30 transition-all text-lg"
-          >
-            📲 Konfirmasi Pesanan Via WA
-          </a>
         </div>
       </section>
 
       {/* KONTAK & FOOTER */}
       <footer
         id="kontak"
-        className="bg-neutral-900 border-t border-amber-500 pt-20 pb-10"
+        className="bg-neutral-950 border-t border-amber-500 pt-20 pb-10"
       >
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12 mb-16">
@@ -665,7 +735,7 @@ export default function Home() {
               <div className="space-y-6 text-neutral-300 text-lg">
                 <p>
                   <strong className="block text-white mb-1">📍 Lokasi:</strong>
-                  Citra Indah City - Bukit Mahoni Blok T3 No 16, Kab.Bogor
+                  Citra Indah City - Bukit Mahoni Blok T3 No 16, Kab.bogor
                 </p>
                 <p>
                   <strong className="block text-white mb-1">
@@ -687,17 +757,12 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Syarat & Ketentuan */}
-            <div className="bg-neutral-950 border border-neutral-800 rounded-2xl p-8">
+            <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-8">
               <h3 className="font-bold text-amber-500 text-xl mb-4 border-b border-neutral-800 pb-4">
                 📋 Ketentuan Pemesanan
               </h3>
               <ul className="space-y-3 text-neutral-400 text-sm list-disc list-inside">
                 <li>Harga sewaktu-waktu dapat berubah.</li>
-                <li>
-                  Untuk Menu Tumpeng bisa langsung menghubungi kontak yang
-                  tertera.
-                </li>
                 <li>
                   Menu dapat disesuaikan dengan permintaan (harga senilai).
                 </li>
@@ -715,14 +780,12 @@ export default function Home() {
             </div>
           </div>
 
-          {/* LOGO AREA DI FOOTER */}
           <div className="flex flex-col md:flex-row items-center justify-center gap-8 pt-8 border-t border-neutral-800 mb-8">
             <img
               src="/logocatering.png"
               alt="Logo Ety Catering"
               className="h-16 w-auto grayscale hover:grayscale-0 transition-all duration-300 opacity-80 hover:opacity-100"
             />
-            {/* Garis pemisah vertical untuk tampilan desktop */}
             <div className="hidden md:block w-px h-12 bg-neutral-800"></div>
             <img
               src="/logohalal.png"
