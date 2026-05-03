@@ -12,7 +12,7 @@ export default function Home() {
     quantity: number | string;
   }>({
     packageType: "nasibox-gold",
-    quantity: 30,
+    quantity: 20,
   });
 
   // FIX: Memberikan tipe pada object prices agar TypeScript tidak bingung
@@ -49,7 +49,7 @@ export default function Home() {
 
     const text = `Halo! Saya ingin pesan:%0A${qty} ${
       currentPackage.name
-    }%0AEstimasi harga: Rp ${totalPrice.toLocaleString("id-ID")}${penaltyInfo}${bonus}%0A%0AApakah bisa?`;
+    }%0AEstimasi harga: Rp ${totalPrice.toLocaleString("id-ID")}${penaltyInfo}${bonus}%0A%0AKapan bisa dikirim?`;
 
     return `https://wa.me/6285776146459?text=${text}`;
   };
@@ -550,31 +550,57 @@ export default function Home() {
               <label className="block text-sm font-medium text-neutral-400 mb-2">
                 Jenis Pesanan:
               </label>
-              <select
-                value={calcState.packageType}
-                onChange={(e) =>
-                  setCalcState({ ...calcState, packageType: e.target.value })
-                }
-                className="w-full bg-neutral-950 border border-neutral-700 text-white rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-amber-500 transition-shadow appearance-none"
-              >
-                <option value="nasibox-silver">Nasi Box Silver (25k)</option>
-                <option value="nasibox-gold">Nasi Box Gold (30k)</option>
-                <option value="nasibox-diamond">Nasi Box Diamond (35k)</option>
-                <option value="prasmanan-silver">
-                  Prasmanan Silver (30k/pax)
-                </option>
-                <option value="prasmanan-gold">Prasmanan Gold (40k/pax)</option>
-                <option value="prasmanan-diamond">
-                  Prasmanan Diamond (50k/pax)
-                </option>
-                <option value="snackbox-silver">Snack Box Silver (10k)</option>
-                <option value="snackbox-gold">Snack Box Gold (12k)</option>
-              </select>
+              <div className="relative">
+                <select
+                  value={calcState.packageType}
+                  onChange={(e) =>
+                    setCalcState({ ...calcState, packageType: e.target.value })
+                  }
+                  className="w-full bg-neutral-950 border border-neutral-700 text-white rounded-xl p-4 pr-12 focus:outline-none focus:ring-2 focus:ring-amber-500 transition-shadow appearance-none cursor-pointer"
+                >
+                  <option value="nasibox-silver">Nasi Box Silver (25k)</option>
+                  <option value="nasibox-gold">Nasi Box Gold (30k)</option>
+                  <option value="nasibox-diamond">
+                    Nasi Box Diamond (35k)
+                  </option>
+                  <option value="prasmanan-silver">
+                    Prasmanan Silver (30k/pax)
+                  </option>
+                  <option value="prasmanan-gold">
+                    Prasmanan Gold (40k/pax)
+                  </option>
+                  <option value="prasmanan-diamond">
+                    Prasmanan Diamond (50k/pax)
+                  </option>
+                  <option value="snackbox-silver">
+                    Snack Box Silver (10k)
+                  </option>
+                  <option value="snackbox-gold">Snack Box Gold (12k)</option>
+                </select>
+
+                {/* Ikon Panah Bawah Custom (Warna Gold) */}
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-amber-500">
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2.5"
+                      d="M19 9l-7 7-7-7"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-neutral-400 mb-2">
-                Jumlah porsi/box (Min 20 untuk Nasi box/snack dan 50 untuk
+                Jumlah porsi/box (Min 20 untuk Nasi box/Snack dan 50 untuk
                 Prasmanan):
               </label>
               <input
@@ -639,7 +665,7 @@ export default function Home() {
               <div className="space-y-6 text-neutral-300 text-lg">
                 <p>
                   <strong className="block text-white mb-1">📍 Lokasi:</strong>
-                  Citra Indah City - Bukit Mahoni T3 No 16, Kab.Bogor
+                  Citra Indah City - Bukit Mahoni Blok T3 No 16, Kab.Bogor
                 </p>
                 <p>
                   <strong className="block text-white mb-1">
@@ -649,7 +675,7 @@ export default function Home() {
                     href="https://wa.me/6285776146459"
                     className="text-green-400 font-bold hover:underline"
                   >
-                    085776146459
+                    0857-7614-6459
                   </a>
                 </p>
                 <p>
