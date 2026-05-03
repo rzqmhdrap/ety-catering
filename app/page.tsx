@@ -5,12 +5,17 @@ import { useState } from "react";
 export default function Home() {
   const [activeTab, setActiveTab] = useState("nasibox");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [calcState, setCalcState] = useState({
+
+  // FIX: Memberi tahu TypeScript bahwa quantity bisa number atau string kosong
+  const [calcState, setCalcState] = useState<{
+    packageType: string;
+    quantity: number | string;
+  }>({
     packageType: "nasibox-gold",
-    quantity: 30, // Default nilai awal
+    quantity: 30,
   });
 
-  // Data Harga & Paket
+  // FIX: Memberikan tipe pada object prices agar TypeScript tidak bingung
   const prices: Record<string, { price: number; name: string }> = {
     "nasibox-silver": { price: 25000, name: "Nasi Box Silver" },
     "nasibox-gold": { price: 30000, name: "Nasi Box Gold" },
@@ -22,11 +27,11 @@ export default function Home() {
     "snackbox-gold": { price: 12000, name: "Snack Box Gold" },
   };
 
-  // Logika Kalkulator (Sudah Diperbaiki)
-  const currentPackage = prices[calcState.packageType as keyof typeof prices];
+  // Logika Kalkulator
+  const currentPackage = prices[calcState.packageType];
 
   // Pastikan jika input kosong (""), jumlahnya dianggap 0 agar tidak NaN
-  const qty = calcState.quantity === "" ? 0 : parseInt(calcState.quantity);
+  const qty = calcState.quantity === "" ? 0 : Number(calcState.quantity);
   let totalPrice = qty * currentPackage.price;
 
   // Penalti Prasmanan < 100 pax
@@ -569,7 +574,7 @@ export default function Home() {
 
             <div>
               <label className="block text-sm font-medium text-neutral-400 mb-2">
-                Jumlah porsi/box (Min 20 untuk Nasi box/Snack dan 50 untuk
+                Jumlah porsi/box (Min 20 untuk Nasi box/snack dan 50 untuk
                 Prasmanan):
               </label>
               <input
@@ -579,9 +584,8 @@ export default function Home() {
                 onChange={(e) =>
                   setCalcState({
                     ...calcState,
-                    // Fix: Jika dihapus sampai kosong, biarkan kosong (""). Jika tidak, ubah ke angka.
                     quantity:
-                      e.target.value === "" ? "" : parseInt(e.target.value),
+                      e.target.value === "" ? "" : Number(e.target.value),
                   })
                 }
                 className="w-full bg-neutral-950 border border-neutral-700 text-white rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-amber-500 transition-shadow text-center text-lg"
@@ -635,7 +639,7 @@ export default function Home() {
               <div className="space-y-6 text-neutral-300 text-lg">
                 <p>
                   <strong className="block text-white mb-1">📍 Lokasi:</strong>
-                  Citra Indah City - Cluster Mahoni Blok T3 No 16
+                  Citra Indah City - Bukit Mahoni T3 No 16, Kab.Bogor
                 </p>
                 <p>
                   <strong className="block text-white mb-1">
@@ -664,10 +668,6 @@ export default function Home() {
               </h3>
               <ul className="space-y-3 text-neutral-400 text-sm list-disc list-inside">
                 <li>Harga sewaktu-waktu dapat berubah.</li>
-                <li>
-                  Untuk pemesanan tumpeng bisa langsung menghubungi kontak yang
-                  tertera.
-                </li>
                 <li>
                   Menu dapat disesuaikan dengan permintaan (harga senilai).
                 </li>
