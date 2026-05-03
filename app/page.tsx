@@ -11,7 +11,7 @@ export default function Home() {
   });
 
   // Data Harga & Paket
-  const prices = {
+  const prices: Record<string, { price: number; name: string }> = {
     "nasibox-silver": { price: 25000, name: "Nasi Box Silver" },
     "nasibox-gold": { price: 30000, name: "Nasi Box Gold" },
     "nasibox-diamond": { price: 35000, name: "Nasi Box Diamond" },
@@ -23,7 +23,7 @@ export default function Home() {
   };
 
   // Logika Kalkulator (Sudah Diperbaiki)
-  const currentPackage = prices[calcState.packageType];
+  const currentPackage = prices[calcState.packageType as keyof typeof prices];
 
   // Pastikan jika input kosong (""), jumlahnya dianggap 0 agar tidak NaN
   const qty = calcState.quantity === "" ? 0 : parseInt(calcState.quantity);
@@ -569,11 +569,12 @@ export default function Home() {
 
             <div>
               <label className="block text-sm font-medium text-neutral-400 mb-2">
-                Jumlah porsi/box (Min 30):
+                Jumlah porsi/box (Min 20 untuk Nasi box/Snack dan 50 untuk
+                Prasmanan):
               </label>
               <input
                 type="number"
-                min="30"
+                min="20"
                 value={calcState.quantity}
                 onChange={(e) =>
                   setCalcState({
