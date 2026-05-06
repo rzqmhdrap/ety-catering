@@ -66,20 +66,26 @@ export default function Home() {
             </span>
           </a>
 
-          {/* Desktop Menu - Ditambahkan 'Galeri' */}
+          {/* Desktop Menu - Ditambahkan 'Jadwal' */}
           <nav className="hidden md:flex gap-8">
-            {["Home", "Paket", "Menu", "Galeri", "Kalkulator", "Kontak"].map(
-              (item) => (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  className="font-medium hover:text-amber-500 transition-colors relative group"
-                >
-                  {item}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-500 transition-all group-hover:w-full"></span>
-                </a>
-              ),
-            )}
+            {[
+              "Home",
+              "Paket",
+              "Menu",
+              "Galeri",
+              "Jadwal",
+              "Kalkulator",
+              "Kontak",
+            ].map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className="font-medium hover:text-amber-500 transition-colors relative group"
+              >
+                {item}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-500 transition-all group-hover:w-full"></span>
+              </a>
+            ))}
           </nav>
 
           <button
@@ -101,18 +107,24 @@ export default function Home() {
         {/* Mobile Nav Dropdown */}
         {isMobileMenuOpen && (
           <div className="md:hidden absolute top-full left-0 w-full bg-neutral-900 border-b border-amber-500/20 p-4 flex flex-col gap-4 shadow-xl">
-            {["Home", "Paket", "Menu", "Galeri", "Kalkulator", "Kontak"].map(
-              (item) => (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-lg hover:text-amber-500"
-                >
-                  {item}
-                </a>
-              ),
-            )}
+            {[
+              "Home",
+              "Paket",
+              "Menu",
+              "Galeri",
+              "Jadwal",
+              "Kalkulator",
+              "Kontak",
+            ].map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-lg hover:text-amber-500"
+              >
+                {item}
+              </a>
+            ))}
           </div>
         )}
       </header>
@@ -585,11 +597,38 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
 
-          {/* <p className="text-center text-neutral-400 mt-8 italic text-sm">
-            *Ini adalah foto ilustrasi. Silakan ganti URL gambarnya dengan foto
-            produk asli Anda.
-          </p> */}
+      {/* JADWAL / GOOGLE CALENDAR SECTION */}
+      <section
+        id="jadwal"
+        className="py-24 px-6 bg-neutral-950 border-t border-amber-500/10 max-w-full"
+      >
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-amber-500 mb-6 relative">
+            📅 Jadwal Ketersediaan
+            <span className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-20 h-1 bg-gradient-to-r from-amber-500 to-transparent rounded-full"></span>
+          </h2>
+          <p className="text-center text-neutral-400 mb-12">
+            Cek tanggal kosong untuk momen spesial Anda sebelum melakukan
+            pemesanan.
+          </p>
+
+          <div className="bg-neutral-900 border border-neutral-800 rounded-3xl p-4 md:p-6 shadow-2xl overflow-hidden">
+            <div className="relative w-full h-[500px] md:h-[600px] rounded-2xl overflow-hidden bg-white">
+              {/* NOTE: Silakan ganti URL di dalam src= dengan URL Google Calendar asli Anda */}
+              <iframe
+                src="https://calendar.google.com/calendar/embed?src=21f205c6e9233bd3a2644b658e1f09fa16fde17183ffe7fd99c018e481ebd336%40group.calendar.google.com&ctz=Asia%2FJakarta"
+                style={{ border: "solid 1px #777" }}
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                scrolling="no"
+                title="Google Calendar Ety Catering"
+              ></iframe>
+            </div>
+          </div>
         </div>
       </section>
 
