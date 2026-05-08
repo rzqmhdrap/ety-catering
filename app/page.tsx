@@ -50,6 +50,52 @@ export default function Home() {
     return `https://wa.me/6285776146459?text=${text}`;
   };
 
+  // Data Testimoni
+  const testimonials = [
+    {
+      initials: "SR",
+      name: "Sari Rahmawati",
+      loc: "Cileungsi, Bogor",
+      event: "Pernikahan",
+      text: "Makanannya enak banget, porsinya juga pas. Tamu undangan pada nambah terus. Pelayanannya ramah dan tepat waktu. Pas banget buat acara nikahan kami, semua berjalan lancar tanpa drama. Recommended banget!",
+    },
+    {
+      initials: "BH",
+      name: "Reza saputra",
+      loc: "Jonggol, Bogor",
+      event: "Syukuran",
+      text: "Sudah 2 kali pakai Ety Catering buat acara keluarga. Kualitas konsisten, tidak pernah mengecewakan. Nasi box Diamond favorit keluarga kami — lauknya lengkap dan rasanya seperti masakan rumah sendiri.",
+    },
+    {
+      initials: "DN",
+      name: "Dewi Nuraeni",
+      loc: "Gunung Putri, Bogor",
+      event: "Khitanan",
+      text: "Pesan prasmanan Gold untuk khitanan anak, total 150 pax. Meja, alat makan, pemanas semua sudah include. Tinggal duduk dan nikmati acara — tidak perlu repot urus logistik. Harga juga sangat terjangkau.",
+    },
+    {
+      initials: "YP",
+      name: "Yuni Pratiwi",
+      loc: "Cibinong, Bogor",
+      event: "Arisan",
+      text: "Sering pakai buat arisan bulanan. Snack box-nya beragam dan selalu fresh. Yang paling suka, bisa request menu dan harganya tidak berubah. Pelayanan lewat WA juga cepat dan responsif!",
+    },
+    {
+      initials: "RA",
+      name: "Reza Andrianto",
+      loc: "Citeureup, Bogor",
+      event: "Ulang Tahun",
+      text: "Tumpeng 20 pax untuk ulang tahun perusahaan kami. Tampilannya cantik sekali, cocok untuk foto dan instagramable. Rasanya tidak kalah enak dengan tampilannya. Tim kantor langsung minta pesan lagi tahun depan.",
+    },
+    {
+      initials: "FS",
+      name: "Fitri Susilawati",
+      loc: "Bogor Kota",
+      event: "Nasi Box",
+      text: "Awalnya ragu karena pesan online, tapi ternyata luar biasa! Makanan datang tepat waktu, masih panas, dan jumlahnya pas. Sertifikasi halal MUI-nya juga bikin tenang. Pasti akan pesan lagi!",
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-neutral-950 text-neutral-100 font-sans selection:bg-amber-500/30">
       {/* HEADER NAVBAR */}
@@ -66,12 +112,12 @@ export default function Home() {
             </span>
           </a>
 
-          {/* Desktop Menu - Ditambahkan 'Jadwal' */}
           <nav className="hidden md:flex gap-8">
             {[
               "Home",
               "Paket",
               "Menu",
+              "Testimoni",
               "Galeri",
               "Jadwal",
               "Kalkulator",
@@ -104,13 +150,13 @@ export default function Home() {
           </button>
         </div>
 
-        {/* Mobile Nav Dropdown */}
         {isMobileMenuOpen && (
           <div className="md:hidden absolute top-full left-0 w-full bg-neutral-900 border-b border-amber-500/20 p-4 flex flex-col gap-4 shadow-xl">
             {[
               "Home",
               "Paket",
               "Menu",
+              "Testimoni",
               "Galeri",
               "Jadwal",
               "Kalkulator",
@@ -132,9 +178,9 @@ export default function Home() {
       {/* HERO SECTION */}
       <section
         id="home"
-        className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-gradient-to-br from-neutral-900 via-neutral-950 to-black"
+        className="relative min-h-screen flex items-center justify-center pt-24 pb-12 overflow-hidden bg-gradient-to-br from-neutral-900 via-neutral-950 to-black"
       >
-        <div className="absolute top-32 right-6 flex flex-col gap-4 z-10 hidden md:flex">
+        <div className="absolute top-52 right-8 flex flex-col gap-4 z-10 hidden lg:flex">
           <div className="bg-neutral-900/60 backdrop-blur-md border border-amber-500/30 px-5 py-2 rounded-full font-semibold shadow-lg flex items-center gap-2">
             👑 Best Choice
           </div>
@@ -148,13 +194,63 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="max-w-3xl mx-auto px-6 text-center z-10 relative">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight bg-gradient-to-r from-white via-amber-100 to-amber-500 bg-clip-text text-transparent">
-            Pilihan Terbaik untuk Momen Spesial Anda
+        <div className="max-w-4xl mx-auto px-6 text-center z-10 relative">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+            Catering Halal Terpercaya
+            <br />
+            di{" "}
+            <span className="bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
+              Kabupaten Bogor
+            </span>
           </h1>
-          <p className="text-lg md:text-xl text-neutral-300 mb-10">
+
+          <p className="text-lg md:text-xl text-neutral-300 mb-6">
             Pernikahan • Khitanan • Ulang Tahun • Arisan • Syukuran
+            <br />
+            <span className="text-base md:text-lg mt-2 inline-block">
+              Nasi Box mulai{" "}
+              <strong className="text-amber-500">Rp 25.000</strong> · Prasmanan
+              mulai <strong className="text-amber-500">Rp 30.000/pax</strong>
+            </span>
           </p>
+
+          <p className="text-sm md:text-base text-neutral-400 max-w-3xl mx-auto mb-12 leading-relaxed">
+            Ety Catering melayani pemesanan nasi box, prasmanan, tumpeng, dan
+            snack box untuk seluruh wilayah Kabupaten Bogor termasuk Cileungsi,
+            Jonggol, Cibinong, Gunung Putri, Citeureup, Bogor Kota, dan
+            sekitarnya. Berpengalaman melayani lebih dari 500 event sejak 2021
+            dengan sertifikasi halal resmi dari MUI.
+          </p>
+
+          <div className="flex justify-center gap-10 md:gap-20 mb-12 flex-wrap">
+            <div className="text-center group cursor-default hover:-translate-y-2 transition-transform duration-500">
+              <div className="text-4xl md:text-5xl font-bold text-amber-500 mb-2 transition-all duration-500 group-hover:scale-110 group-hover:text-amber-400 group-hover:drop-shadow-[0_0_20px_rgba(245,158,11,0.6)]">
+                500+
+              </div>
+              <div className="text-xs md:text-sm text-neutral-400 uppercase tracking-widest transition-colors duration-500 group-hover:text-neutral-200">
+                Event Dilayani
+              </div>
+            </div>
+
+            <div className="text-center group cursor-default hover:-translate-y-2 transition-transform duration-500">
+              <div className="text-4xl md:text-5xl font-bold text-amber-500 mb-2 transition-all duration-500 group-hover:scale-110 group-hover:text-amber-400 group-hover:drop-shadow-[0_0_20px_rgba(245,158,11,0.6)]">
+                5
+              </div>
+              <div className="text-xs md:text-sm text-neutral-400 uppercase tracking-widest transition-colors duration-500 group-hover:text-neutral-200">
+                Tahun Berpengalaman
+              </div>
+            </div>
+
+            <div className="text-center group cursor-default hover:-translate-y-2 transition-transform duration-500">
+              <div className="text-4xl md:text-5xl font-bold text-amber-500 mb-2 transition-all duration-500 group-hover:scale-110 group-hover:text-amber-400 group-hover:drop-shadow-[0_0_20px_rgba(245,158,11,0.6)]">
+                100%
+              </div>
+              <div className="text-xs md:text-sm text-neutral-400 uppercase tracking-widest transition-colors duration-500 group-hover:text-neutral-200">
+                Halal MUI
+              </div>
+            </div>
+          </div>
+
           <a
             href="https://wa.me/6285776146459"
             target="_blank"
@@ -174,7 +270,6 @@ export default function Home() {
         </h2>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {/* Card Diamond */}
           <div className="bg-neutral-900 border border-amber-500/20 rounded-3xl p-10 text-center relative overflow-hidden group hover:-translate-y-2 hover:border-amber-500 transition-all duration-300">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-600"></div>
             <div className="text-5xl mb-6">💎</div>
@@ -199,7 +294,6 @@ export default function Home() {
             </a>
           </div>
 
-          {/* Card Prasmanan */}
           <div className="bg-neutral-900 border border-amber-500/20 rounded-3xl p-10 text-center relative overflow-hidden group hover:-translate-y-2 hover:border-amber-500 transition-all duration-300">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-600"></div>
             <div className="text-5xl mb-6">🏅</div>
@@ -535,6 +629,71 @@ export default function Home() {
         </div>
       </section>
 
+      {/* TESTIMONI SECTION (Desain Dark Mode) */}
+      <section
+        id="testimoni"
+        className="py-24 px-6 bg-neutral-950 border-t border-amber-500/10"
+      >
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="text-xs font-bold tracking-widest uppercase text-amber-500 mb-2">
+              Testimoni Pelanggan
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white font-serif mb-4 leading-tight">
+              Dipercaya Ratusan Keluarga
+              <br />
+              di Kabupaten Bogor
+            </h2>
+            <div className="flex items-center justify-center gap-2">
+              <span className="text-amber-500 text-xl tracking-widest">
+                ★★★★★
+              </span>
+              <span className="text-neutral-400 text-sm">
+                4.9/5 dari 500+ event yang telah dilayani
+              </span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {testimonials.map((testi, idx) => (
+              <div
+                key={idx}
+                className="bg-neutral-900 border border-amber-500/20 rounded-2xl p-8 hover:-translate-y-2 hover:border-amber-500/50 hover:shadow-[0_10px_30px_-10px_rgba(245,158,11,0.15)] transition-all duration-300"
+              >
+                {/* Ikon Kutip */}
+                <span className="font-serif text-6xl text-amber-500/20 leading-[0.5] block mb-4">
+                  "
+                </span>
+
+                {/* Teks Ulasan */}
+                <p className="text-neutral-300 text-[15px] leading-relaxed mb-6 h-28 overflow-y-auto pr-2 custom-scrollbar">
+                  {testi.text}
+                </p>
+
+                {/* Footer Card (Avatar, Nama, Tag) */}
+                <div className="flex items-center gap-3 border-t border-neutral-800 pt-5">
+                  <div className="w-11 h-11 rounded-full bg-neutral-800 border border-amber-500/30 text-amber-500 font-bold flex items-center justify-center shrink-0">
+                    {testi.initials}
+                  </div>
+                  <div>
+                    <div className="font-bold text-white text-sm">
+                      {testi.name}
+                    </div>
+                    <div className="text-neutral-400 text-xs mt-0.5">
+                      {testi.loc}
+                    </div>
+                    <div className="text-amber-500 text-[10px] mt-1">★★★★★</div>
+                  </div>
+                  <span className="ml-auto bg-amber-500/10 text-amber-500 border border-amber-500/20 text-[10px] font-bold px-3 py-1 rounded-full whitespace-nowrap">
+                    {testi.event}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* GALERI FOTO MAKANAN */}
       <section
         id="galeri"
@@ -617,7 +776,6 @@ export default function Home() {
 
           <div className="bg-neutral-900 border border-neutral-800 rounded-3xl p-4 md:p-6 shadow-2xl overflow-hidden">
             <div className="relative w-full h-[500px] md:h-[600px] rounded-2xl overflow-hidden bg-white">
-              {/* NOTE: Silakan ganti URL di dalam src= dengan URL Google Calendar asli Anda */}
               <iframe
                 src="https://calendar.google.com/calendar/embed?src=21f205c6e9233bd3a2644b658e1f09fa16fde17183ffe7fd99c018e481ebd336%40group.calendar.google.com&ctz=Asia%2FJakarta"
                 style={{ border: "solid 1px #777" }}
